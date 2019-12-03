@@ -6,55 +6,48 @@ import java.util.Scanner;
 
 public class QCFileHandling {
 
-	PrintWriter outputStream=null; //save functions
-	Scanner inputStream=null; //load function
+	static PrintWriter outputStream=null; //save functions
+	static Scanner inputStream=null; //load function
 	
-	//trying to save to the file system. not sure how to integrate into rest of program
-	public void save (String fileName, String data) {	//file not found exception is used 
+	
+	public static void save (String fileName, ErrorTrackingForm data) {	//file not found exception is used 
 		
 		try {
-			outputStream = new PrintWriter(fileName); //always will start with empty file. If already exist the file will be rewritten. Otherwise, new file made.
+			outputStream = new PrintWriter(fileName); 
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("Error, could not open file");
 			System.exit(0);
 		}
-		//in week 13 example object were printed out here
-		//using outputStream.println("");
-		outputStream.println(data);
+		outputStream.println(data.toString());			 
 		
-		//put at the end of what is to be saved
 		outputStream.close();
 		System.out.println("Your response has been recorded.");
 	}
+
 	
-	
-	//could have function that does the toString print to the console.
-	//don't have a toString yet.. will see if we need
-	
-	//recall function
-	public String load (String fileName) { //could be String array or other data type
+	//load function
+	public static String loadFile (String fileName) { 
 		try {
-			inputStream= new Scanner (new File(fileName)); //errorreport1202.txt
+			inputStream= new Scanner (new File(fileName)); 
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("Error, could not open file");
 			System.exit(0);
 		}
-		String data=""; //goal: add each line to data
+		String data="";
 		while (inputStream.hasNextLine()) {
-			String line=inputStream.nextLine()+"\n"; 
-			
-			//System.out.println(line); //debugging option
-				data=data+line;
-					//adding line to data, grow data
-								// it is printing extra line because data is empty string so first time around it 
-								//prints the extra line. too lazy to fix but could with if statement.
-								//fixed it by putting \n after the inputStram.nextLine on line 46
+			String line=inputStream.nextLine()+"\n";
+			data=data+line;
 		}
-		System.out.println(data);
+		//System.out.println(data);
 		inputStream.close();
-		return data;
+		
+		return data; 
+		/*
+		  You should use this data to create a new Form object and 
+		  save that form objec to the form array list.
+		*/
 	}
-	
 }
+

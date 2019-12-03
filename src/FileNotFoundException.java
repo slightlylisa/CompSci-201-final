@@ -8,3 +8,6 @@ public class FileNotFoundException extends Exception {
 		super(message);
 	}
 }
+
+
+//we should make new exception class. points up the ying yang
